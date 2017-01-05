@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
 
 module.exports = function(app) {
     // view engine setup
@@ -17,6 +18,8 @@ module.exports = function(app) {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(cookieParser());
 
+    // initialize passport
+    app.use(passport.initialize());
 
     app.use(express.static(path.join(__dirname+'/../../', 'public')));
 };

@@ -5,6 +5,8 @@ angular.module('app').controller('mainCtrl', ['$scope', function($scope) {
         {name: 'Toastr'},
         {name: 'jQuery'},
         {name: 'express-generator'},
-        {name: 'mongoose'}
+        {name: 'mongoose'},
+        {name: 'passport'},
+        {name: 'JWT tokens'}
     ];
 }]);

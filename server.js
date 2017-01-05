@@ -4,6 +4,12 @@ var config = require('./server/config/server-config');
 
 var app = express();
 
+// setup mongo/mongoose
+require('./server/config/mongoose')(config);
+
+// setup passport
+require('./server/config/passport');
+
 // setup express
 require('./server/config/express')(app);
 
