@@ -19,4 +19,4 @@ require('./server/config/routes')(app);
 // setup error handlers
 require('./server/config/error-handler')(app);
 
-module.exports = app;
+module.exports = app; 

@@ -34,6 +34,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/">Home</a></li>
                 </ul>
+                <div ng-include="'/app/account/navbar-login.html'"></div>
             </div>
         </div>
     </nav>
@@ -51,6 +52,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
     <script src="/app/angularApp.js"></script>
+    <script src="/app/common/authService.js"></script>
     <script src="/app/main/mainCtrl.js"></script>
+    <script src="/app/account/navBarLoginCtrl.js"></script>
+    <script src="/app/account/loginCtrl.js"></script>
   </body>
 </html>

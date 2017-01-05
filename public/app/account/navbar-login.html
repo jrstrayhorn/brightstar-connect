@@ -1,0 +1,13 @@
+<div class="navbar-right" ng-controller="navBarLoginCtrl">
+    <ul class="nav navbar-nav">
+        <li class="dropdown" ng-show="isLoggedIn()">
+            <a href="" data-toggle="dropdown" class="dropdown-toggle">
+                {{ currentUserFullName() }}
+                <b class="caret"></b>
+            </a>
+        </li>
+        <li>
+            <a ng-hide="isLoggedIn()" ui-sref="login">Admin Login</a>
+        </li>
+    </ul>
+</div>

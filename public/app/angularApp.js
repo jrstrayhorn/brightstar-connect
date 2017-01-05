@@ -8,6 +8,13 @@ angular.module('app').config(['$stateProvider', '$urlRouterProvider', function($
             templateUrl: '/app/main/main.html',
             controller: 'mainCtrl'
         })
+
+        .state('login', {
+            url: '/login',
+            templateUrl: '/app/account/login.html',
+            controller: 'loginCtrl'
+        })
+
         ;
 
     $urlRouterProvider.otherwise('main');
