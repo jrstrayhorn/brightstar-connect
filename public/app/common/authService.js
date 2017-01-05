@@ -40,5 +40,9 @@ angular.module('app').factory('authService', ['$http', '$window', function($http
         });
     };
 
+    auth.logOut = function() {
+        $window.localStorage.removeItem('brightstarconnect-token');
+    }
+
     return auth;
 }]);

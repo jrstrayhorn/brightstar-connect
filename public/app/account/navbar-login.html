@@ -5,6 +5,11 @@
                 {{ currentUserFullName() }}
                 <b class="caret"></b>
             </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="" ng-click="logOut()">Log Out</a>
+                </li>
+            </ul>
         </li>
         <li>
             <a ng-hide="isLoggedIn()" ui-sref="login">Admin Login</a>

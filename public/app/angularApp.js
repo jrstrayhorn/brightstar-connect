@@ -12,7 +12,12 @@ angular.module('app').config(['$stateProvider', '$urlRouterProvider', function($
         .state('login', {
             url: '/login',
             templateUrl: '/app/account/login.html',
-            controller: 'loginCtrl'
+            controller: 'loginCtrl',
+            onEnter: ['$location', 'authService', function($location, authService){
+                if(authService.isLoggedIn()){
+                    $location.path("/");
+                }
+            }]
         })
 
         ;
