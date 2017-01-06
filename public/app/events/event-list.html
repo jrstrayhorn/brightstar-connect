@@ -1,0 +1,18 @@
+<div class="container top-padding-med">
+    <h3>Event Listing</h3>
+    <p>Click the event name below to register.</p>
+    <table class="table table-hover table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Event Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="event in events | filter:{publish:true} | orderBy:'date'">
+                <td><a href="#/events/{{event._id}}"><h4>{{event.name}}</h4></a></td>
+                <td>{{event.date | date:"fullDate"}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
