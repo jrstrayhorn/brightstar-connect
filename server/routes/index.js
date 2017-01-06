@@ -3,6 +3,11 @@ var router = express.Router();
 
 var auth = require('../../server/config/auth');
 
+var events = require('../../server/controllers/events.controller');
+
+/* events routes */
+router.get('/api/events', events.getEvents);
+
 /* authentication routes */
 router.post('/login', auth.authenticate);
 
