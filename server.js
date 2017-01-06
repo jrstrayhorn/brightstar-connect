@@ -17,6 +17,6 @@ require('./server/config/express')(app);
 require('./server/config/routes')(app);
 
 // setup error handlers
-require('./server/config/error-handler')(app);
+require('./server/config/error-handler')(app); 
 
 module.exports = app; 

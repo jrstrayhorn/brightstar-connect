@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Event = mongoose.model('Event');
+var Registration = mongoose.model('Registration');
 
 exports.getEvents = function(req, res, next) {
     Event.find(function(err, events){
@@ -18,6 +19,36 @@ exports.getEventById = function(req, res, next) {
     });
 };
 
+exports.saveRegistration = function(req, res, next) {
+    if (!req.body.name || !req.body.email) {
+        return res.status(400).json({message: 'Please fill out all required fields'});
+    }
+
+    // Check if any existing registrations for event and email address
+    Registration
+    .find({event:req.body._id})
+    .exec(function(err, regs){
+        // check registrations for one with same email address
+        if (existRegistration(regs, req.body.email)) {
+            return res.status(400).json({message: 'There is already a registration to this event for this email address.'});
+        } else {
+            // new registration continue with processing
+            
+        }
+    });
+};
+
+function existRegistration(regArray, email) {
+    var found = false;  // assume failure
+
+    for(var i=0; i < regArray.length; i++) {
+        if (regArray[i].email === email) {
+            found = true;
+        }
+    }
+
+    return found;
+}
 exports.updateEvent = function(req, res, next) {
     if(!req.body.name || !req.body.date) {
         return res.status(400).json({message: 'Please fill out all required fields'});

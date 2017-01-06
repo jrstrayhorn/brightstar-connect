@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 var eventSchema = mongoose.Schema({
     name: {type:String, required: true},
     date: {type:Date, required: true},
-    publish: {type:Boolean, required: true}
+    publish: {type:Boolean, required: true},
+    registrations: [{type: mongoose.Schema.Types.ObjectId, ref: 'Registration' }]
 });
 
 var Event = mongoose.model('Event', eventSchema);
