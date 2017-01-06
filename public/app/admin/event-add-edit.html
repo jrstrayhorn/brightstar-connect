@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="well">
+        <form class="form-horizontal" name="eventForm" ng-if="!loading">
+            <fieldset>
+                <legend>
+                    Event Details
+                    <div class="form-group">
+                        <label for="name" class="col-md-2 control-label">Name</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="name" placeholder="Event Name" ng-model="event.name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="date" class="col-md-2 control-label">Date</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="date" placeholder="Event Date" ng-model="event.date" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="publish" class="col-md-2 control-label">Publish</label>
+                        <div class="col-md-10">
+                            <input type="checkbox" class="form-control" name="publish" ng-model="event.publish">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <div class="pull-right">
+                                <a class="btn btn-primary" ng-click="saveEvent()">Save</a>
+                                <a href="#/admin/events" class="btn btn-default">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </legend>
+            </fieldset>
+        </form>
+    </div>
+</div>
