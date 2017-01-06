@@ -13,8 +13,8 @@ angular.module('app').controller('eventAddEditCtrl', ['$scope', 'eventService', 
             eventService.GetById($stateParams._id)
                 .then(function(event) {
                     $scope.loading -= 1; 
-                    var myDate = new Date(event.date);
-                    event.date = (myDate.getMonth()+1) + '/' + myDate.getDate() + '/' + myDate.getFullYear();
+                    var eventDate = new Date(event.date);
+                    event.date = (eventDate.getMonth()+1) + '/' + eventDate.getDate() + '/' + eventDate.getFullYear();
                     $scope.event = event;
                 });
         } else {

@@ -18,6 +18,25 @@ exports.getEventById = function(req, res, next) {
     });
 };
 
+exports.updateEvent = function(req, res, next) {
+    if(!req.body.name || !req.body.date) {
+        return res.status(400).json({message: 'Please fill out all required fields'});
+    }
+
+    var eventUpdates = {};
+
+    eventUpdates.name = req.body.name;
+    eventUpdates.date = req.body.date;
+    eventUpdates.publish = req.body.publish;
+
+    Event.findByIdAndUpdate(req.body._id, {
+        $set: eventUpdates
+    }, function (err, user) {
+        if (err) return res.status(400).json({message: err.toString()});
+        res.sendStatus(200);
+    })
+};
+
 exports.createEvent = function(req, res, next) {
     if(!req.body.name || !req.body.date) {
         return res.status(400).json({message: 'Please fill out all required fields'});

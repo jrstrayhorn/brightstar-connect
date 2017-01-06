@@ -18,8 +18,11 @@ angular.module('app').factory('eventService', ['$http', '$q', 'authService', fun
     }
 
     function Save(event) {
-        if (1 == -1) {
+        if (event._id) {
             // update
+            return $http.put(apiUrl + '/' + event._id, event, {
+                headers: {Authorization: 'Bearer ' + authService.getToken()}
+            }).then(handleSuccess, handleError);
         } else {
             // create
             return $http.post(apiUrl, event, {
