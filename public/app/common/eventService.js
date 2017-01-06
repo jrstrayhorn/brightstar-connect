@@ -6,6 +6,7 @@ angular.module('app').factory('eventService', ['$http', '$q', 'authService', fun
     service.GetAll = GetAll;
     service.GetById = GetById;
     service.Save = Save;
+    service.SaveRegistration = SaveRegistration;
 
     return service;
 
@@ -29,6 +30,11 @@ angular.module('app').factory('eventService', ['$http', '$q', 'authService', fun
                 headers: {Authorization: 'Bearer ' + authService.getToken()}
             }).then(handleSuccess, handleError);
         }
+    }
+
+    function SaveRegistration(_id, registration) {
+        return $http.post(apiUrl + '/' + _id + '/registrations', registration)
+            .then(handleSuccess, handleError);
     }
 
     // private functions
