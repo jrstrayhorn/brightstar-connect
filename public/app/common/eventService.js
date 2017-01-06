@@ -4,12 +4,17 @@ angular.module('app').factory('eventService', ['$http', '$q', 'authService', fun
     var service = {};
 
     service.GetAll = GetAll;
+    service.GetById = GetById;
     service.Save = Save;
 
     return service;
 
     function GetAll() {
         return $http.get(apiUrl).then(handleSuccess, handleError);
+    }
+
+    function GetById(_id) {
+        return $http.get(apiUrl + '/' + _id).then(handleSuccess, handleError);
     }
 
     function Save(event) {

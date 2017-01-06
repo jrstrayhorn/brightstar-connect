@@ -14,6 +14,7 @@ var authJWT = jwt({secret: config.secretKey, userProperty: 'payload'});
 /* events routes */
 router.get('/api/events', events.getEvents);
 router.post('/api/events', authJWT, events.createEvent);
+router.get('/api/events/:_id', events.getEventById);
 
 /* authentication routes */
 router.post('/login', auth.authenticate);

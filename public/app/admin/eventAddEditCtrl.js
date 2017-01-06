@@ -12,7 +12,9 @@ angular.module('app').controller('eventAddEditCtrl', ['$scope', 'eventService', 
             $scope.loading += 1;
             eventService.GetById($stateParams._id)
                 .then(function(event) {
-                    $scope.loading -= 1;
+                    $scope.loading -= 1; 
+                    var myDate = new Date(event.date);
+                    event.date = (myDate.getMonth()+1) + '/' + myDate.getDate() + '/' + myDate.getFullYear();
                     $scope.event = event;
                 });
         } else {
