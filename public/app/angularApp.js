@@ -42,6 +42,17 @@ angular.module('app').config(['$stateProvider', '$urlRouterProvider', function($
             }]
         })
 
+        .state('adminEventsEdit', {
+            url: '/admin/events/edit/:_id',
+            templateUrl: '/app/admin/event-add-edit.html',
+            controller: 'eventAddEditCtrl',
+            onEnter: ['$location', 'authService', function($location, authService){
+                if(!authService.isLoggedIn()){
+                    $location.path("/");
+                }
+            }]
+        })
+
         ;
 
     $urlRouterProvider.otherwise('main');

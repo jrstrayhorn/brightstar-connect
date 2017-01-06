@@ -1,4 +1,4 @@
-angular.module('app').controller('eventAddEditCtrl', ['$scope', 'eventService', 'notifierService', '$state', function($scope, eventService, notifierService, $state) {
+angular.module('app').controller('eventAddEditCtrl', ['$scope', 'eventService', 'notifierService', '$state', '$stateParams', function($scope, eventService, notifierService, $state, $stateParams) {
     
     $scope.event = {};
     $scope.saveEvent = saveEvent;
@@ -8,8 +8,13 @@ angular.module('app').controller('eventAddEditCtrl', ['$scope', 'eventService', 
     function initController() {
         $scope.loading = 0;
 
-        if (1 == -1) {
-
+        if ($stateParams._id) {
+            $scope.loading += 1;
+            eventService.GetById($stateParams._id)
+                .then(function(event) {
+                    $scope.loading -= 1;
+                    $scope.event = event;
+                });
         } else {
             // initialize with defaults
             $scope.event = {
