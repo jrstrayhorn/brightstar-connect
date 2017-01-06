@@ -7,6 +7,7 @@ angular.module('app').controller('mainCtrl', ['$scope', function($scope) {
         {name: 'express-generator'},
         {name: 'mongoose'},
         {name: 'passport'},
-        {name: 'JSON Web Tokens'}
+        {name: 'JSON Web Tokens'},
+        {name: 'express-jwt'}
     ];
 }]);

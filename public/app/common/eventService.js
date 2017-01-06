@@ -1,4 +1,4 @@
-angular.module('app').factory('eventService', ['$http', '$q', function($http, $q){
+angular.module('app').factory('eventService', ['$http', '$q', 'authService', function($http, $q, authService){
 
     var apiUrl = '/api/events';
     var service = {};
@@ -17,7 +17,9 @@ angular.module('app').factory('eventService', ['$http', '$q', function($http, $q
             // update
         } else {
             // create
-            return $http.post(apiUrl, event).then(handleSuccess, handleError);
+            return $http.post(apiUrl, event, {
+                headers: {Authorization: 'Bearer ' + authService.getToken()}
+            }).then(handleSuccess, handleError);
         }
     }
 

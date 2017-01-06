@@ -8,3 +8,17 @@ exports.getEvents = function(req, res, next) {
         res.json(events);
     });
 };
+
+exports.createEvent = function(req, res, next) {
+    if(!req.body.name || !req.body.date) {
+        return res.status(400).json({message: 'Please fill out all required fields'});
+    }
+
+    var event = new Event(req.body);
+
+    event.save(function(err, event) {
+        if (err) { return next(err); }
+
+        res.sendStatus(200);
+    })
+};

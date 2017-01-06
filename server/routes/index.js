@@ -1,12 +1,19 @@
 var express = require('express');
 var router = express.Router();
 
+var jwt = require('express-jwt');
 var auth = require('../../server/config/auth');
+
+var config = require('../../server/config/server-config');
 
 var events = require('../../server/controllers/events.controller');
 
+// middleware for authenticating jwt
+var authJWT = jwt({secret: config.secretKey, userProperty: 'payload'});
+
 /* events routes */
 router.get('/api/events', events.getEvents);
+router.post('/api/events', authJWT, events.createEvent);
 
 /* authentication routes */
 router.post('/login', auth.authenticate);

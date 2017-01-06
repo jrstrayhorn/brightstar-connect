@@ -25,7 +25,11 @@ angular.module('app').controller('eventAddEditCtrl', ['$scope', 'eventService', 
                 $state.go('adminEvents');
             })
             .catch(function (error) {
-                notifierService.error(error);
+                if(error.message) {
+                    notifierService.error(error.message);
+                } else {
+                    notifierService.error(error);
+                }
             });
     }
 }]);
