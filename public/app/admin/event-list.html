@@ -12,8 +12,9 @@
             <tr>
                 <th>Name</th>
                 <th>Event Date</th>
-                <th>Published</th>
-                <th></th>
+                <th class="text-center">Published</th>
+                <th class="text-center">View Registrations</th>
+                <th>Edit</th>
             </tr>
         </thead>
         <tbody>
@@ -22,6 +23,11 @@
                 <td>{{event.date | date:"fullDate"}}</td>
                 <td class="text-center">
                     <i class="glyphicon glyphicon-ok" ng-if="event.publish"></i>
+                </td>
+                <td class="text-center">
+                    <a href="#/admin/events/registrations/{{event._id}}" class="btn btn-default">
+                        <i class="glyphicon glyphicon-list-alt"></i>
+                    </a>
                 </td>
                 <td class="action-icons">
                     <a href="#/admin/events/edit/{{event._id}}" class="btn btn-default">

@@ -65,6 +65,17 @@ angular.module('app').config(['$stateProvider', '$urlRouterProvider', function($
             }]
         })
 
+        .state('adminEventRegistrations', {
+            url: '/admin/events/registrations/:_id',
+            templateUrl: '/app/admin/event-registration-list.html',
+            controller: 'eventRegistrationListCtrl',
+            onEnter: ['$location', 'authService', function($location, authService){
+                if(!authService.isLoggedIn()){
+                    $location.path("/");
+                }
+            }]
+        })
+
         ;
 
     $urlRouterProvider.otherwise('main');

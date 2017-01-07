@@ -13,7 +13,7 @@ exports.getEvents = function(req, res, next) {
 exports.getEventById = function(req, res, next) {
     Event.findById(req.params._id).exec(function(err, event) {
         if (err) { return next(err); }
-        if (!event) { return next(new Error("can't find course")); }
+        if (!event) { return next(new Error("can't find event")); }
 
         res.json(event);
     });
@@ -37,7 +37,7 @@ exports.saveRegistration = function(req, res, next) {
             // Get Event for registration - will need later
             Event.findById(req.params._id).exec(function(err, event) {
                 if (err) { return next(err); }
-                if (!event) { return next(new Error("can't find course")); }
+                if (!event) { return next(new Error("can't find event")); }
 
                 var registration = new Registration(req.body);
                 // create ref from registration to event

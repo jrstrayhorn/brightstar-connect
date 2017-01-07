@@ -5,6 +5,7 @@ angular.module('app').factory('eventService', ['$http', '$q', 'authService', fun
 
     service.GetAll = GetAll;
     service.GetById = GetById;
+    service.GetByIdWithRegistrations = GetByIdWithRegistrations;
     service.Save = Save;
     service.SaveRegistration = SaveRegistration;
 
@@ -16,6 +17,12 @@ angular.module('app').factory('eventService', ['$http', '$q', 'authService', fun
 
     function GetById(_id) {
         return $http.get(apiUrl + '/' + _id).then(handleSuccess, handleError);
+    }
+
+    function GetByIdWithRegistrations(_id) {
+        return $http.get(apiUrl + '/' + _id + '/registrations', {
+            headers: {Authorization: 'Bearer ' + authService.getToken()}
+        }).then(handleSuccess, handleError);
     }
 
     function Save(event) {
