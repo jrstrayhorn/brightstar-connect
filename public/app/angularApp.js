@@ -21,6 +21,12 @@ angular.module('app').config(['$stateProvider', '$urlRouterProvider', function($
             controller: 'eventDetailsCtrl'
         })
 
+        .state('cancelRegistration', {
+            url: '/registrations/cancel/:_id',
+            templateUrl: '/app/registrations/registration-cancel.html',
+            controller: 'registrationCancelCtrl'
+        })
+
         .state('login', {
             url: '/login',
             templateUrl: '/app/account/login.html',

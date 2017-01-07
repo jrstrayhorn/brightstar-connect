@@ -1,0 +1,34 @@
+<div class="container" ng-if="!loading">
+    <h1>{{registration.event.name}}</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Event Date: {{ registration.event.date | date:"fullDate" }}</h3>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-danger">
+                <div class="panel-heading">Cancel Your Reservation</div>
+                <div class="panel-body">
+                    <form name="cancelationForm">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <p class="lead">{{registration.name}}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <p class="lead">{{registration.email}}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <p class="lead">{{registration.phone}}</p>
+                        </div>
+                        <hr/>
+                        <div class="form-group">
+                            <a class="btn btn-danger" ng-click="cancelRegistration()">Cancel Registration</a>
+                            <a href="#/events" class="btn btn-default">Return to Events</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
