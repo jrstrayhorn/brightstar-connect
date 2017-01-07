@@ -62,7 +62,7 @@ exports.saveRegistration = function(req, res, next) {
 
                     // add registration ref to event
                     event.registrations.push(registration);
-                    event.save(function(err, post) {
+                    event.save(function(err, event) {
                         if(err) { return next(err); }
 
                         res.sendStatus(200);

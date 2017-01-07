@@ -8,4 +8,9 @@ var RegistrationSchema = new mongoose.Schema({
     event: { type: mongoose.Schema.Types.ObjectId, ref: 'Event' }
 });
 
+RegistrationSchema.methods.cancel = function(callback) {
+    this.active = false;
+    this.save(callback);
+}
+
 mongoose.model('Registration', RegistrationSchema);

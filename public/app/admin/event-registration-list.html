@@ -27,7 +27,7 @@
                     <i class="glyphicon glyphicon-ok" ng-if="registration.active"></i>
                 </td>
                 <td class="action-icons text-center">
-                    <a href="#/registrations/cancel/{{registration._id}}" class="btn btn-default">
+                    <a href="#/registrations/cancel/{{registration._id}}" class="btn btn-default" ng-if="registration.active">
                         <i class="glyphicon glyphicon-remove"></i>
                     </a>
                 </td>

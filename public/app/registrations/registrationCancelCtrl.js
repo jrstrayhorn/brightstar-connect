@@ -11,7 +11,7 @@ angular.module('app').controller('registrationCancelCtrl', ['$scope', '$statePar
         if($stateParams._id) {
             $scope.loading += 1;
             registrationService.GetById($stateParams._id)
-                .then(function (event) {
+                .then(function (registration) {
                     $scope.loading -= 1;
                     $scope.registration = registration;
                 });
