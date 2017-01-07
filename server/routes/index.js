@@ -9,6 +9,8 @@ var config = require('../../server/config/server-config');
 var events = require('../../server/controllers/events.controller');
 var registrations = require('../../server/controllers/registrations.controller');
 
+
+
 // middleware for authenticating jwt
 var authJWT = jwt({secret: config.secretKey, userProperty: 'payload'});
 
