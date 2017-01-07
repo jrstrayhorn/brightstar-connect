@@ -26,14 +26,36 @@ exports.saveRegistration = function(req, res, next) {
 
     // Check if any existing registrations for event and email address
     Registration
-    .find({event:req.body._id})
+    .find({event:req.params._id})
     .exec(function(err, regs){
         // check registrations for one with same email address
         if (existRegistration(regs, req.body.email)) {
             return res.status(400).json({message: 'There is already a registration to this event for this email address.'});
         } else {
             // new registration continue with processing
-            
+
+            // Get Event for registration - will need later
+            Event.findById(req.params._id).exec(function(err, event) {
+                if (err) { return next(err); }
+                if (!event) { return next(new Error("can't find course")); }
+
+                var registration = new Registration(req.body);
+                // create ref from registration to event
+                registration.event = event;
+                
+                // save registration to db
+                registration.save(function(err, registration) {
+                    if(err) { return next(err); }
+
+                    // add registration ref to event
+                    event.registrations.push(registration);
+                    event.save(function(err, post) {
+                        if(err) { return next(err); }
+
+                        res.sendStatus(200);
+                    });
+                });
+            });
         }
     });
 };
