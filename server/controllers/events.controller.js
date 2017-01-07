@@ -3,7 +3,7 @@ var Event = mongoose.model('Event');
 var Registration = mongoose.model('Registration');
 
 exports.getEvents = function(req, res, next) {
-    Event.find(function(err, events){
+    Event.find({}, 'name date publish',function(err, events){
         if(err) { return next(err); }
 
         res.json(events);
@@ -11,12 +11,25 @@ exports.getEvents = function(req, res, next) {
 };
 
 exports.getEventById = function(req, res, next) {
-    Event.findById(req.params._id).exec(function(err, event) {
-        if (err) { return next(err); }
-        if (!event) { return next(new Error("can't find event")); }
+    Event.findById(req.params._id)
+        .select('name date publish')
+        .exec(function(err, event) {
+            if (err) { return next(err); }
+            if (!event) { return next(new Error("can't find event")); }
 
-        res.json(event);
-    });
+            res.json(event);
+        });
+};
+
+exports.getEventByIdWithRegistrations = function(req, res, next) {
+    Event.findById(req.params._id)
+        .populate('registrations')
+        .exec(function(err, event) {
+            if (err) { return next(err); }
+            if (!event) { return next(new Error("can't find event")); }
+
+            res.json(event);
+        });
 };
 
 exports.saveRegistration = function(req, res, next) {

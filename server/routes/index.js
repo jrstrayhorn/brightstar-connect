@@ -18,6 +18,7 @@ router.get('/api/events/:_id', events.getEventById);
 router.put('/api/events/:_id', events.updateEvent);
 
 /* events - registration routes */
+router.get('/api/events/:_id/registrations', authJWT, events.getEventByIdWithRegistrations);
 router.post('/api/events/:_id/registrations', events.saveRegistration);
 
 /* authentication routes */
