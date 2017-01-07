@@ -1,5 +1,6 @@
-angular.module('app').controller('registrationCancelCtrl', ['$scope', '$stateParams', 'registrationService', 'notifierService', '$state', function($scope, $stateParams, registrationService, notifierService, $state) {
+angular.module('app').controller('registrationCancelCtrl', ['$scope', '$stateParams', 'registrationService', 'notifierService', '$state', 'authService', function($scope, $stateParams, registrationService, notifierService, $state, authService) {
     
+    $scope.isLoggedIn = authService.isLoggedIn;
     $scope.registration = {};
     $scope.cancelRegistration = cancelRegistration;
 
@@ -22,7 +23,14 @@ angular.module('app').controller('registrationCancelCtrl', ['$scope', '$statePar
         registrationService.CancelRegistration($stateParams._id)
             .then(function() {
                 notifierService.notify('The registration has been cancelled.');
-                $state.go('events');
+                if(!authService.isLoggedIn()){
+                    // normal user
+                    $state.go('events');
+                } else {
+                    // admin user - return to registration list
+                    $state.go('adminEventRegistrations', {"_id":$scope.registration.event._id});
+                }
+                
             })
             .catch(function (error) {
                 if(error.message) {

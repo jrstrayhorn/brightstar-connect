@@ -24,7 +24,8 @@
                         <hr/>
                         <div class="form-group">
                             <a class="btn btn-primary" ng-disabled="registrationForm.$invalid" ng-click="saveRegistration()">Register</a>
-                            <a href="#/events" class="btn btn-default">Return to Events</a>
+                            <a href="#/events" class="btn btn-default" ng-hide="isLoggedIn()">Return to Events</a>
+                            <a href="javascript:history.go(-1)" class="btn btn-default" ng-show="isLoggedIn()">Return to Event Registrations</a>
                         </div>
                     </form>
                 </div>

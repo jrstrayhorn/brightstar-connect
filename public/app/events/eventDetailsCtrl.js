@@ -1,5 +1,6 @@
-angular.module('app').controller('eventDetailsCtrl', ['$scope', 'eventService', '$stateParams', 'notifierService', '$state', function($scope, eventService, $stateParams, notifierService, $state) {
+angular.module('app').controller('eventDetailsCtrl', ['$scope', 'eventService', '$stateParams', 'notifierService', '$state', 'authService', function($scope, eventService, $stateParams, notifierService, $state, authService) {
     
+    $scope.isLoggedIn = authService.isLoggedIn;
     $scope.registration = {};
     $scope.event = {};
     $scope.saveRegistration = saveRegistration;
@@ -23,7 +24,13 @@ angular.module('app').controller('eventDetailsCtrl', ['$scope', 'eventService', 
         eventService.SaveRegistration($stateParams._id, $scope.registration)
             .then(function() {
                 notifierService.notify('Registration saved.  Email confirmation has been sent.');
-                $state.go('events');
+                if(!authService.isLoggedIn()){
+                    // normal user
+                    $state.go('events');
+                } else {
+                    // admin user - return to registration list
+                    $state.go('adminEventRegistrations', {"_id":$stateParams._id});
+                }
             })
             .catch(function (error) {
                 if(error.message) {

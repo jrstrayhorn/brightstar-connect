@@ -77,7 +77,7 @@ function existRegistration(regArray, email) {
     var found = false;  // assume failure
 
     for(var i=0; i < regArray.length; i++) {
-        if (regArray[i].email === email) {
+        if (regArray[i].email === email && regArray[i].active) {
             found = true;
         }
     }
