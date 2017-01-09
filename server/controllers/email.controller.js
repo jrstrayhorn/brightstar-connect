@@ -1,12 +1,10 @@
-var config = require('../../server/config/server-config');
-
 var nodemailer = require('nodemailer');
 
 exports.sendConfirmationEmail = function(req, res, next) {
 
     var emailData = req.emailData;
 
-    var cancelUrl = config.appDomain + '/#/registrations/cancel/' + emailData.registrationId;
+    var cancelUrl = process.env.APP_DOMAIN + '/#/registrations/cancel/' + emailData.registrationId;
 
     var html = '';
     html += '<h2>Registration confirmed!</h2><br>';
@@ -26,7 +24,7 @@ exports.sendCancellationEmail = function(req, res, next) {
 
     var emailData = req.emailData;
 
-    var eventUrl = config.appDomain + '/#/events';
+    var eventUrl = process.env.APP_DOMAIN + '/#/events';
 
     var html = '';
     html += '<h2>Registration canceled!</h2><br>';
@@ -44,13 +42,13 @@ function sendMail(to, subject, html) {
     var transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-        user: config.emailUser,
-        pass: config.emailPwd
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PWD
         }
     });
 
     var mailOptions = {
-        from: config.emailFrom,
+        from: process.env.EMAIL_FROM,
         to: to,
         subject: subject,
         html: html

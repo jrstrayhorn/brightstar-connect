@@ -1,3 +1,4 @@
 node_modules
 *.log
 /server/config/server-config.js
+/server/config/env.js

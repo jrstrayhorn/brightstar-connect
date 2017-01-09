@@ -4,15 +4,13 @@ var router = express.Router();
 var jwt = require('express-jwt');
 var auth = require('../../server/config/auth');
 
-var config = require('../../server/config/server-config');
-
 var events = require('../../server/controllers/events.controller');
 var registrations = require('../../server/controllers/registrations.controller');
 
 var emailCtrl = require('../../server/controllers/email.controller');
 
 // middleware for authenticating jwt
-var authJWT = jwt({secret: config.secretKey, userProperty: 'payload'});
+var authJWT = jwt({secret: process.env.SECRET_KEY, userProperty: 'payload'});
 
 /* events routes */
 router.get('/api/events', events.getEvents);

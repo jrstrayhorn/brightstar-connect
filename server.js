@@ -1,11 +1,14 @@
 var express = require('express');
 
-var config = require('./server/config/server-config');
-
 var app = express();
 
+// TESTING
+if(!process.env.MONGO_URL) {
+  var env = require('./server/config/env');
+}
+
 // setup mongo/mongoose
-require('./server/config/mongoose')(config);
+require('./server/config/mongoose');
 
 // setup passport
 require('./server/config/passport');

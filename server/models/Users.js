@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
-var config = require('../../server/config/server-config');
+
 
 var UserSchema = new mongoose.Schema({
     firstname: String,
@@ -38,7 +38,7 @@ UserSchema.methods.generateJWT = function() {
         lastname: this.lastname,
         roles: this.roles,
         exp: parseInt(exp.getTime() / 1000)
-    }, config.secretKey);
+    }, process.env.SECRET_KEY);
 };
 
 var User = mongoose.model('User', UserSchema);
@@ -48,11 +48,11 @@ function createDefaultAdminUsers() {
         if(collection.length === 0) {
             var user = new User();
 
-            user.firstname = config.defaultAdminFirstName;
-            user.lastname = config.defaultAdminLastName;
-            user.username = config.defaultAdminUser;
+            user.firstname = process.env.DEFAULT_ADMIN_FIRST_NAME;
+            user.lastname = process.env.DEFAULT_ADMIN_LAST_NAME;
+            user.username = process.env.DEFAULT_ADMIN_USER;
             user.roles = ['admin'];
-            user.setPassword(config.defaultAdminPwd);
+            user.setPassword(process.env.DEFAULT_ADMIN_PWD);
 
             user.save();
         }
