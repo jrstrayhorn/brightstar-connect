@@ -6,6 +6,41 @@ exports.sendConfirmationEmail = function(req, res, next) {
 
     var emailData = req.emailData;
 
+    var cancelUrl = config.appDomain + '/#/registrations/cancel/' + emailData.registrationId;
+
+    var html = '';
+    html += '<h2>Registration confirmed!</h2><br>';
+    html += 'Thanks for using Bright Star Connect!!<br><br>';
+    html += 'You are registered for ' + emailData.eventName + ' on ' + emailData.eventDate + '<br><br>';
+    html += 'Name: ' + emailData.registrationName + '<br><br>';
+    html += '<a href="' + cancelUrl + '">Click Here to Cancel Your Registration</a><br><br>';
+    html += 'Special Note: Please keep this email.  It is the only way to manage your event registration.<br><br>';
+    html += 'You are receiving this confirmation email because you registered for an event using Bright Star Connect.';
+
+    var subject = 'Your Registration Confirmation for ' + emailData.eventName;
+
+    sendMail(emailData.toEmail, subject, html);
+}
+
+exports.sendCancellationEmail = function(req, res, next) {
+
+    var emailData = req.emailData;
+
+    var eventUrl = config.appDomain + '/#/events';
+
+    var html = '';
+    html += '<h2>Registration canceled!</h2><br>';
+    html += 'You have successfully canceled your registration for<br><br>';
+    html += emailData.eventName + ' on ' + emailData.eventDate + '<br><br>';
+    html += 'Name: ' + emailData.registrationName + '<br><br>';
+    html += '<a href="' + eventUrl + '">Click Here to Register for a new Event</a><br><br>';
+    
+    var subject = 'Your ' + emailData.eventName + ' registration has been canceled';
+
+    sendMail(emailData.toEmail, subject, html);
+}
+
+function sendMail(to, subject, html) {
     var transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
@@ -14,33 +49,20 @@ exports.sendConfirmationEmail = function(req, res, next) {
         }
     });
 
-    var cancelUrl = config.appDomain + '/#/registrations/cancel/' + emailData.registrationId;
-
-  var html = '';
-  html += '<h2>Registration confirmed!</h2><br>';
-  html += 'Thanks for using Bright Star Connect!!<br><br>';
-  html += 'You are registered for ' + emailData.eventName + ' on ' + emailData.eventDate + '<br><br>';
-  html += 'Name: ' + emailData.registrationName + '<br><br>';
-  html += '<a href="' + cancelUrl + '">Click Here to Cancel Your Registration</a><br><br>';
-  html += 'Special Note: Please keep this email.  It is the only way to manage your event registration.<br><br>';
-  html += 'You are receiving this confirmation email because you registered for an event using Bright Star Connect.';
-
-
-  var mailOptions = {
-    from: config.emailFrom,
-    to: emailData.toEmail,
-    subject: 'Your Registration Confirmation for ' + emailData.eventName,
-    html: html
-  };
-
-  transporter.sendMail(mailOptions, function(error, info) {
-    if(error) {
-      console.log(error);
-      //res.json({yo:'error'});
-    } else {
-      console.log('Message sent: ' + info.response);
-      //res.json({yo:info.response});
+    var mailOptions = {
+        from: config.emailFrom,
+        to: to,
+        subject: subject,
+        html: html
     };
-  });
 
+    transporter.sendMail(mailOptions, function(error, info) {
+        if(error) {
+            console.log(error);
+            //res.json({yo:'error'});
+        } else {
+            console.log('Message sent: ' + info.response);
+            //res.json({yo:info.response});
+        };
+    });
 }

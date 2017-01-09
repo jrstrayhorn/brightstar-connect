@@ -26,7 +26,7 @@ router.post('/api/events/:_id/registrations', events.saveRegistration, emailCtrl
 
 /* registration routes */
 router.get('/api/registrations/:_id', registrations.getRegistrationById);
-router.put('/api/registrations/:_id/cancel', registrations.cancelRegistration);
+router.put('/api/registrations/:_id/cancel', registrations.cancelRegistration, emailCtrl.sendCancellationEmail);
 
 /* authentication routes */
 router.post('/login', auth.authenticate);

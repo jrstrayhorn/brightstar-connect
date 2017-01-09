@@ -8,6 +8,7 @@ angular.module('app').controller('mainCtrl', ['$scope', function($scope) {
         {name: 'mongoose'},
         {name: 'passport'},
         {name: 'JSON Web Tokens'},
-        {name: 'express-jwt'}
+        {name: 'express-jwt'},
+        {name: 'nodemailer'}
     ];
 }]);
