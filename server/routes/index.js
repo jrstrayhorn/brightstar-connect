@@ -9,7 +9,7 @@ var config = require('../../server/config/server-config');
 var events = require('../../server/controllers/events.controller');
 var registrations = require('../../server/controllers/registrations.controller');
 
-
+var emailCtrl = require('../../server/controllers/email.controller');
 
 // middleware for authenticating jwt
 var authJWT = jwt({secret: config.secretKey, userProperty: 'payload'});
@@ -22,7 +22,7 @@ router.put('/api/events/:_id', events.updateEvent);
 
 /* events - registration routes */
 router.get('/api/events/:_id/registrations', authJWT, events.getEventByIdWithRegistrations);
-router.post('/api/events/:_id/registrations', events.saveRegistration);
+router.post('/api/events/:_id/registrations', events.saveRegistration, emailCtrl.sendConfirmationEmail);
 
 /* registration routes */
 router.get('/api/registrations/:_id', registrations.getRegistrationById);
