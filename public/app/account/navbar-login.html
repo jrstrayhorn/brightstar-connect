@@ -7,15 +7,15 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                    <a ui-sref="adminEvents">Manage Events / Registrations</a>
+                    <a ui-sref="adminEvents"  data-toggle="collapse" data-target="#brightstar-connect-navbar.in">Manage Events / Registrations</a>
                 </li>
                 <li>
-                    <a href="" ng-click="logOut()">Log Out</a>
+                    <a href="" ng-click="logOut()"  data-toggle="collapse" data-target="#brightstar-connect-navbar.in">Log Out</a>
                 </li>
             </ul>
         </li>
         <li>
-            <a ng-hide="isLoggedIn()" ui-sref="login">Admin Login</a>
+            <a ng-hide="isLoggedIn()" ui-sref="login"  data-toggle="collapse" data-target="#brightstar-connect-navbar.in">Admin Login</a>
         </li>
     </ul>
 </div>
