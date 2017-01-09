@@ -27,7 +27,7 @@ exports.sendCancellationEmail = function(req, res, next) {
     var eventUrl = process.env.APP_DOMAIN + '/#/events';
 
     var html = '';
-    html += '<h2>Registration canceled!</h2><br>';
+    html += '<h2>Registration canceled</h2><br>';
     html += 'You have successfully canceled your registration for<br><br>';
     html += emailData.eventName + ' on ' + emailData.eventDate + '<br><br>';
     html += 'Name: ' + emailData.registrationName + '<br><br>';
