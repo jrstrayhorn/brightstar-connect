@@ -42,8 +42,41 @@ exports.saveRegistration = function(req, res, next) {
     .find({event:req.params._id})
     .exec(function(err, regs){
         // check registrations for one with same email address
-        if (existRegistration(regs, req.body.email)) {
-            return res.status(400).json({message: 'There is already a registration to this event for this email address.'});
+        var index = existRegistration(regs, req.body.email);
+        if (index >= 0) {
+            var existingReg = regs[index];
+            if(existingReg.active) {
+                return res.status(400).json({message: 'There is already a registration to this event for this email address.'});
+            } else {
+                // update existing registration
+                var regUpdates = {};
+
+                regUpdates.name = req.body.name;
+                regUpdates.phone = req.body.phone;
+                regUpdates.active = true;
+
+                Registration
+                    .findByIdAndUpdate(existingReg._id, { $set: regUpdates })
+                    .populate('event')
+                    .exec(function (err, reg) {
+                        if (err)  { return next(err); }
+
+                        res.sendStatus(200);
+
+                        // adding email data to request to be used by further middleware
+                        var emailData = {};
+
+                        emailData.toEmail = reg.email;
+                        emailData.eventName = reg.event.name;
+                        var eventDate = new Date(reg.event.date);
+                        emailData.eventDate = (eventDate.getMonth()+1) + '/' + eventDate.getDate() + '/' + eventDate.getFullYear();
+                        emailData.registrationName = reg.name;
+                        emailData.registrationId = reg._id;
+
+                        req.emailData = emailData;
+                        next();
+                    });
+            }
         } else {
             // new registration continue with processing
 
@@ -87,11 +120,11 @@ exports.saveRegistration = function(req, res, next) {
 };
 
 function existRegistration(regArray, email) {
-    var found = false;  // assume failure
+    var found = -1;  // assume failure
 
     for(var i=0; i < regArray.length; i++) {
-        if (regArray[i].email === email && regArray[i].active) {
-            found = true;
+        if (regArray[i].email === email) {
+            found = i;
         }
     }
 
