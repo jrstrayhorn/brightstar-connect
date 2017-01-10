@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 
+var cors = require('../../server/config/allowCORS');
+
 module.exports = function(app) {
     // view engine setup
     app.set('views', path.join(__dirname+'/../../', '/server/views'));
@@ -17,6 +19,13 @@ module.exports = function(app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(cookieParser());
+
+    var myEnv = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+    if(myEnv === 'development') {
+        // allowing CORS for development ONLY!!!!
+        app.use(cors.allowCrossDomain);
+    }
 
     // initialize passport
     app.use(passport.initialize());
